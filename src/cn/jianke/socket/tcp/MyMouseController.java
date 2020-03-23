@@ -1,5 +1,8 @@
 package cn.jianke.socket.tcp;
 
+import cn.jianke.socket.tcp.bean.Action;
+import jdk.nashorn.internal.codegen.ClassEmitter;
+
 import java.awt.Dimension;
 import java.awt.Robot;
 import java.awt.Point;
@@ -17,6 +20,8 @@ public class MyMouseController {
     private double pcWidth;
     private double pcHeight;
 
+    private int lastX;
+    private int lastY;
     private NumberFormat numberFormat;
 
     public MyMouseController() {
@@ -24,6 +29,7 @@ public class MyMouseController {
         dim = Toolkit.getDefaultToolkit().getScreenSize();
         pcWidth = dim.getWidth();
         pcHeight = dim.getHeight();
+        getSize();
         System.out.println("屏幕大小为：" + pcWidth + " " + pcHeight);
         try {
             robot = new Robot();
@@ -32,45 +38,51 @@ public class MyMouseController {
         }
     }
 
-    /**
-     * @param width
-     * @param heigh
-     */
-    public void Move(String width, String heigh) {    //鼠标点击
+    public void getSize() {
 
-        System.out.println("enter Move()...");
-        Point mousepoint = MouseInfo.getPointerInfo().getLocation();
-        System.out.println("移动前坐标：" + mousepoint.x + " " + mousepoint.y);
-        BigDecimal b1 = new BigDecimal(width);
-        BigDecimal b2 = new BigDecimal(heigh);
-        int x = (int) Double.parseDouble(b1.multiply(new BigDecimal(pcWidth)).toString());
-        int y = (int) Double.parseDouble(b2.multiply(new BigDecimal(pcHeight)).toString());
+//
+//        System.out.println("width:" + w + "英寸");
+//        System.out.println("height:" + h + "英寸");
+//
+//        double big = Math.sqrt(Math.pow(w, 2) + Math.pow(h, 2));
+//
+//        System.out.println(big + "英寸");
+
+    }
+
+    /**
+     *
+     */
+    public void Move(Action action) {    //鼠标点击
+        float appX = action.getAppWidth();
+        float appY = action.getAppHeight();
+        lastX = (int) (pcWidth / appX * action.getX());
+        lastY = (int) (pcHeight / appY * action.getY());
         try {
-            robot.mouseMove(x, y);
+            robot.mouseMove(lastX, lastY);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    private int laseX;
-    private int laseY;
-    public void MoveToPosition(String width, String heigh) {    //鼠标移动函数
-        System.out.println("enter Move()...");
-        Point mousepoint = MouseInfo.getPointerInfo().getLocation();
-        System.out.println("移动前坐标：" + mousepoint.x + " " + mousepoint.y);
-        BigDecimal b1 = new BigDecimal(width);
-        BigDecimal b2 = new BigDecimal(heigh);
-        int x = (int) Double.parseDouble(b1.multiply(new BigDecimal(pcWidth)).toString());
-        int y = (int) Double.parseDouble(b2.multiply(new BigDecimal(pcHeight)).toString());
-//        width = (int) pcWidth * width + mousepoint.x;
-//        heigh = (int) pcHeight * heigh + mousepoint.y;
+    public void MoveToPosition(Action action) {    //鼠标移动函数
+        float appX = action.getAppWidth();
+        float appY = action.getAppHeight();
+        int x = (int) (pcWidth / appX * action.getX());
+        int y = (int) (pcHeight / appY * action.getY());
+        int code = 5;
         try {
-            robot.mouseMove(x, y);
+            if (x > 5 || y > 5) {
+                robot.mouseMove(x, y);
+            } else {
+                robot.mouseMove((x + lastX) / 2, (y + lastY) / 2);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("移动后坐标：" + width + " " + heigh);
+        lastX = x;
+        lastY = y;
         //robot.mousePress(InputEvent.BUTTON1_MASK);//鼠标单击
     }
 

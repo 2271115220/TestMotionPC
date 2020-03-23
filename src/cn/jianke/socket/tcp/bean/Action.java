@@ -8,18 +8,45 @@ package cn.jianke.socket.tcp.bean;
 public class Action {
 
 
-    /**
-     * action : down  手势动作
-     * x : 1    动作为move     在x轴上的偏移量(相比上一点) ，单位：%
-     * y : 1    动作为move     在y轴上的偏移量(相比上一点)，单位：%
-     * x : 1    动作为down     在x轴上的偏移量(相比原点) ，单位：%
-     * y : 1    动作为down     在y轴上的偏移量(相比原点)，单位：%
-     */
-
     private int action;
-    private String x;
-    private String y;
+    private float x;
+    private float y;
 
+    private float appWidth;
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getAppWidth() {
+        return appWidth;
+    }
+
+    public void setAppWidth(float appWidth) {
+        this.appWidth = appWidth;
+    }
+
+    public float getAppHeight() {
+        return appHeight;
+    }
+
+    public void setAppHeight(float appHeight) {
+        this.appHeight = appHeight;
+    }
+
+    private float appHeight;
     public int getAction() {
         return action;
     }
@@ -28,19 +55,6 @@ public class Action {
         this.action = action;
     }
 
-    public String getX() {
-        return x;
-    }
 
-    public void setX(String x) {
-        this.x = x;
-    }
 
-    public String getY() {
-        return y;
-    }
-
-    public void setY(String y) {
-        this.y = y;
-    }
 }

@@ -131,15 +131,13 @@ public class TcpSocketServer {
 //                                this.sendmsg();
                             break;
                         } else {
-                            System.out.println(msg);
 //                                msg = socket.getInetAddress() + ":" + msg;
                             action = (Action) JSONObject.parseObject(msg, Action.class);
                             int code = action.getAction();
                             if (code == 0) {//点击事件
-                                System.out.println("");
-                                myMouseController.Move(action.getX(), action.getY());
+                                myMouseController.Move(action);
                             } else if (code == 2) {//移动事件
-                                myMouseController.MoveToPosition(action.getX(), action.getY());
+                                myMouseController.MoveToPosition(action);
                             }
 //                                this.sendmsg();
                         }

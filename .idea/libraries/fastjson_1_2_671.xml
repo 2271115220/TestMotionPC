@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="fastjson-1.2.671">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/javapro/cn/jianke/socket/tcp/lib/fastjson-1.2.67.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
