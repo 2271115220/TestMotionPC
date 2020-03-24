@@ -1,16 +1,11 @@
 package cn.jianke.socket.tcp;
 
 import cn.jianke.socket.tcp.bean.Action;
-import jdk.nashorn.internal.codegen.ClassEmitter;
 
-import java.awt.Dimension;
-import java.awt.Robot;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.MouseInfo;
-import java.awt.AWTException;
-import java.math.BigDecimal;
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.text.NumberFormat;
+import java.util.List;
 
 public class MyMouseController {
 
@@ -24,13 +19,14 @@ public class MyMouseController {
     private int lastY;
     private NumberFormat numberFormat;
 
+    private Bezier mBezier;
+
     public MyMouseController() {
         numberFormat = NumberFormat.getInstance();
         dim = Toolkit.getDefaultToolkit().getScreenSize();
         pcWidth = dim.getWidth();
         pcHeight = dim.getHeight();
-        getSize();
-        System.out.println("屏幕大小为：" + pcWidth + " " + pcHeight);
+        mBezier = new Bezier();
         try {
             robot = new Robot();
         } catch (AWTException e) {
@@ -38,28 +34,15 @@ public class MyMouseController {
         }
     }
 
-    public void getSize() {
-
-//
-//        System.out.println("width:" + w + "英寸");
-//        System.out.println("height:" + h + "英寸");
-//
-//        double big = Math.sqrt(Math.pow(w, 2) + Math.pow(h, 2));
-//
-//        System.out.println(big + "英寸");
-
-    }
-
-    /**
-     *
-     */
-    public void Move(Action action) {    //鼠标点击
+    public void click(Action action) {    //鼠标点击
         float appX = action.getAppWidth();
         float appY = action.getAppHeight();
         lastX = (int) (pcWidth / appX * action.getX());
         lastY = (int) (pcHeight / appY * action.getY());
         try {
             robot.mouseMove(lastX, lastY);
+            robot.mousePress(InputEvent.BUTTON1_MASK);
+            robot.mouseRelease(InputEvent.BUTTON1_MASK);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,14 +53,22 @@ public class MyMouseController {
         float appY = action.getAppHeight();
         int x = (int) (pcWidth / appX * action.getX());
         int y = (int) (pcHeight / appY * action.getY());
-        int code = 5;
-        try {
-            if (x > 5 || y > 5) {
-                robot.mouseMove(x, y);
-            } else {
-                robot.mouseMove((x + lastX) / 2, (y + lastY) / 2);
-            }
 
+        Point startPoint = new Point(lastX, lastY);
+        Point endPoint = new Point((lastX + x) / 2, (lastY + y) / 2);
+
+        List<Point> pointList = mBezier.bezier(startPoint, startPoint, endPoint);
+        Point lastPoint = startPoint;
+        try {
+            for (Point point : pointList) {
+                robot.mouseMove(point.x, point.y);
+//                if (lastPoint != null) {
+//                    if (point.x != lastPoint.x || point.y != lastPoint.y) {
+//                        robot.mouseMove(point.x, point.y);
+//                        lastPoint = point;
+//                    }
+//                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,23 +77,18 @@ public class MyMouseController {
         //robot.mousePress(InputEvent.BUTTON1_MASK);//鼠标单击
     }
 
-    public void Move2(int width) {    //鼠标移动函数
-        System.out.println("enter Move()...");
-        Point mousepoint = MouseInfo.getPointerInfo().getLocation();
-        width += mousepoint.x;
-        try {
-            robot.mouseMove(width, 100);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //robot.mousePress(InputEvent.BUTTON1_MASK);//鼠标单击
-    }
-
 
     public static void main(String args[]) throws Exception {
 
         MyMouseController mmc = new MyMouseController();
-
+        mmc.lastX = 0;
+        mmc.lastY = 0;
+        Action action = new Action();
+        action.setAppHeight(1080);
+        action.setAppWidth(2340);
+        action.setX((float) mmc.pcWidth);
+        action.setY((float) mmc.pcHeight);
+        mmc.MoveToPosition(action);
 
     }
 }

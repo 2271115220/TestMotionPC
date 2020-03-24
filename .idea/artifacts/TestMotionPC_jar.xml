@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TestMotionPC:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TestMotionPC_jar</output-path>
+    <root id="archive" name="TestMotionPC.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/../java_lib/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="TestMotionPC" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/cn/jianke/socket/tcp/lib/fastjson-1.2.67.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/out/production/javapro/cn/jianke/socket/tcp/lib/fastjson-1.2.67.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

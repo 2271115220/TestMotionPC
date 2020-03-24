@@ -4,6 +4,7 @@ import cn.jianke.socket.tcp.bean.Action;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,18 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * @className: TcpSocketServer
- * @classDescription: tcp套接字服务端
- * @author: leibing
- * @createTime: 2016/10/06
- */
 public class TcpSocketServer {
 
     private static MyMouseController myMouseController;
     // 端口号
-    private final static int serverPort = 9877;
+    private final static int serverPort = 9999;
     // tcp套接字列表
     private List<Socket> mList = new ArrayList<Socket>();
     // 套接字服务
@@ -37,21 +35,7 @@ public class TcpSocketServer {
 
     private static Action action;
 
-    /**
-     * 主函数入口
-     *
-     * @param args
-     * @return
-     * @author leibing
-     * @createTime 2016/10/06
-     * @lastModify 2016/10/06
-     */
-    public static void main(String[] args) {
-        action = new Action();
-        myMouseController = new MyMouseController();
-        // 启动tcp套接字服务
-        new TcpSocketServer();
-    }
+
 
     /**
      * 启动tcp套接字服务
@@ -95,15 +79,6 @@ public class TcpSocketServer {
         // 消息
         private String msg = "";
 
-        /**
-         * 构造函数
-         *
-         * @param socket 套接字
-         * @return
-         * @author leibing
-         * @createTime 2016/10/06
-         * @lastModify 2016/10/06
-         */
         public TcpSocketService(Socket socket) {
             this.socket = socket;
             try {
@@ -135,8 +110,9 @@ public class TcpSocketServer {
                             action = (Action) JSONObject.parseObject(msg, Action.class);
                             int code = action.getAction();
                             if (code == 0) {//点击事件
-                                myMouseController.Move(action);
+                                myMouseController.click(action);
                             } else if (code == 2) {//移动事件
+
                                 myMouseController.MoveToPosition(action);
                             }
 //                                this.sendmsg();
@@ -148,15 +124,6 @@ public class TcpSocketServer {
             }
         }
 
-        /**
-         * 发送消息
-         *
-         * @param
-         * @return
-         * @author leibing
-         * @createTime 2016/10/06
-         * @lastModify 2016/10/06
-         */
         public void sendmsg() {
             System.out.println(msg);
             int num = mList.size();
@@ -172,5 +139,12 @@ public class TcpSocketServer {
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        action = new Action();
+        myMouseController = new MyMouseController();
+        // 启动tcp套接字服务
+        new TcpSocketServer();
     }
 }

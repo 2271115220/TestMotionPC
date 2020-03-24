@@ -1,7 +1,6 @@
 package cn.jianke.socket.tcp.bean;
 
 /**
- * @author wfx: 一行代码,亿万生活.
  * @date 2020/3/23 15:06
  * @desc
  */
