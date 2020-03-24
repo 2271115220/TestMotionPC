@@ -16,7 +16,7 @@ public class Bezier {
         float tStep = 1 / ((float) steps);
 
         float t = 0f;
-        for (int ik = 0; ik <= steps; ik++) {
+        for (int i = 0; i <= steps; i++) {
             int x = (int) calculateQuadSpline(startPoint.x, cPoint.x, endPoint.x, t);
             int y = (int) calculateQuadSpline(startPoint.y, cPoint.y, endPoint.y, t);
             // newPoints[ik]=new Point(x,y);
@@ -33,7 +33,6 @@ public class Bezier {
         float a4 = a1 + a2 + a3;
         return a4;
     }
-
 
 
     public static void main(String[] args) {

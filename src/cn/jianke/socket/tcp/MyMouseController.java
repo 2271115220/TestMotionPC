@@ -55,10 +55,10 @@ public class MyMouseController {
         int y = (int) (pcHeight / appY * action.getY());
 
         Point startPoint = new Point(lastX, lastY);
-        Point endPoint = new Point((lastX + x) / 2, (lastY + y) / 2);
+        Point cPoint = new Point((lastX + x) / 2, (lastY + y) / 2);
+        Point endPoint = new Point(x, y);
 
-        List<Point> pointList = mBezier.bezier(startPoint, startPoint, endPoint);
-        Point lastPoint = startPoint;
+        List<Point> pointList = mBezier.bezier(startPoint, cPoint, endPoint);
         try {
             for (Point point : pointList) {
                 robot.mouseMove(point.x, point.y);
