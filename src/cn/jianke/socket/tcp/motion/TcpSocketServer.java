@@ -1,10 +1,8 @@
-package cn.jianke.socket.tcp;
+package cn.jianke.socket.tcp.motion;
 
 import cn.jianke.socket.tcp.bean.Action;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,9 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TcpSocketServer {
 
@@ -112,7 +107,6 @@ public class TcpSocketServer {
                             if (code == 0) {//点击事件
                                 myMouseController.click(action);
                             } else if (code == 2) {//移动事件
-
                                 myMouseController.MoveToPosition(action);
                             }
 //                                this.sendmsg();

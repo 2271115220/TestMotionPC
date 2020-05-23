@@ -16,7 +16,7 @@ public class Bezier {
         float tStep = 1 / ((float) steps);
 
         float t = 0f;
-        for (int i = 0; i <= steps; i++) {
+        for (int ik = 0; ik <= steps; ik++) {
             int x = (int) calculateQuadSpline(startPoint.x, cPoint.x, endPoint.x, t);
             int y = (int) calculateQuadSpline(startPoint.y, cPoint.y, endPoint.y, t);
             // newPoints[ik]=new Point(x,y);
@@ -37,6 +37,21 @@ public class Bezier {
 
     public static void main(String[] args) {
         Bezier bezier = new Bezier();
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        Point startPoint = new Point(100, 100);
+        Point cPoint = new Point(100, 100);
+        Point endPoint = new Point(600, 1400);
+        List<Point> bezierL = bezier.bezier(startPoint, cPoint, endPoint);
+        for (int i = 0; i < bezierL.size(); i++) {
+            robot.mouseMove((int) bezierL.get(i).getX(), (int) bezierL.get(i).getY());
+            robot.delay(500);
+            cPoint = new Point((int) bezierL.get(i).getX(), (int) bezierL.get(i).getY());
+        }
 //        bezier.test();
     }
 }
