@@ -36,8 +36,8 @@ public class MyMouseController {
     }
 
     public void click(Action action) {    //鼠标点击
-        float appX = 2265.0f;
-        float appY = 1005.0f;
+        float appX = action.getAppWidth();
+        float appY = action.getAppHeight();
         mPreX = (int) (pcWidth / appX * action.getX());
         mPreY = (int) (pcHeight / appY * action.getY());
         try {
@@ -50,8 +50,8 @@ public class MyMouseController {
     }
 
     public void MoveToPosition(Action action) {    //鼠标移动函数
-        float appX = 2265.0f;
-        float appY = 1005.0f;
+        float appX = action.getAppWidth();
+        float appY = action.getAppHeight();
         float aaa = action.getX();
         float bbb = action.getY();
         int x = mPreX + (int) (pcWidth / appX * aaa);
