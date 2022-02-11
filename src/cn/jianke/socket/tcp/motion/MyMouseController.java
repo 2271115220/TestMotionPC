@@ -62,6 +62,20 @@ public class MyMouseController {
         //robot.mousePress(InputEvent.BUTTON1_MASK);//鼠标单击
     }
 
+
+    public void MoveToPosition2(Action action) {    //鼠标移动函数
+        float appX = action.getAppWidth();
+        float appY = action.getAppHeight();
+        float aaa = action.getX();
+        float bbb = action.getY();
+        int x = (int) (pcWidth / appX * aaa);
+        int y = (int) (pcHeight / appY * bbb);
+        robot.mouseMove(x, y);
+        mPreX = x;
+        mPreY = y;
+        //robot.mousePress(InputEvent.BUTTON1_MASK);//鼠标单击
+    }
+
     public void Test() {
         for (int i = 0; i < 1000; i++) {
             robot.mouseMove(i, i);

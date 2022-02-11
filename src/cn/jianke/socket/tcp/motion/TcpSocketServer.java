@@ -107,7 +107,7 @@ public class TcpSocketServer {
                             if (code == 0) {//点击事件
                                 myMouseController.click(action);
                             } else if (code == 2) {//移动事件
-                                myMouseController.MoveToPosition(action);
+                                myMouseController.MoveToPosition2(action);
                             }
 //                                this.sendmsg();
                         }

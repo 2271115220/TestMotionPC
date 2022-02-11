@@ -24,7 +24,6 @@ public class UDP_client {
             socket.send(packet);
         }
 
-
         //4.关闭资源
 //        socket.close();
     }

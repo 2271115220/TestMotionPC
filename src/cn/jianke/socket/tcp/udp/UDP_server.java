@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
-import java.util.Arrays;
+               import java.util.Arrays;
 
 
 public class UDP_server {
@@ -40,7 +40,7 @@ public class UDP_server {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("type", "server");
                 jsonObject.put("msg", "我是服务端,我接收到了局域网内有新成员加入的消息，我对指定IP成员，做出回应");
-               /* udp_server.sendMessage(clientIP, jsonObject.toString());*/
+                /* udp_server.sendMessage(clientIP, jsonObject.toString());*/
             }
             //4
 //        serverSocket.close();
@@ -61,13 +61,11 @@ public class UDP_server {
         try {
             socket = new DatagramSocket();
             //2.打包
-
             msg = URLEncoder.encode(msg, "utf-8");
             byte[] arr = msg.getBytes();
             //四个参数: 包的数据  包的长度  主机对象  端口号
             DatagramPacket packet = new DatagramPacket
                     (arr, arr.length, InetAddress.getByName(ip), 4000);
-
             //3.发送
             socket.send(packet);
         } catch (SocketException e) {
