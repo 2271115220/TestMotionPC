@@ -19,7 +19,6 @@ public class UDP_server {
 
     public void reviceMessage() {
 
-
         //1
         DatagramSocket serverSocket = null;
         try {
